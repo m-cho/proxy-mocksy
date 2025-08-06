@@ -1,7 +1,7 @@
 {
   "name": "proxy-mocksy",
   "displayName": "Proxy Mocksy",
-  "description": "Local mock server with VS Code integration, JSON configuration, and dynamic response templates for rapid API development.",
+  "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.102.0"
@@ -15,6 +15,9 @@
   "galleryBanner": {
     "color": "#1E1E1E",
     "theme": "dark"
+  },
+  "bin": {
+    "proxy-mocksy": "./out/cli/cli.js"
   },
   "contributes": {
     "commands": [
@@ -66,12 +69,12 @@
       "view/title": [
         {
           "command": "proxy-mocksy.startServer",
-          "when": "view == proxy-mocksy.view && !proxy-mocksy.serverRunning",
+          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig && !proxy-mocksy.serverRunning",
           "group": "navigation@1"
         },
         {
-          "command": "proxy-mocksy.stopServer", 
-          "when": "view == proxy-mocksy.view && proxy-mocksy.serverRunning",
+          "command": "proxy-mocksy.stopServer",
+          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig && proxy-mocksy.serverRunning",
           "group": "navigation@1"
         },
         {
@@ -86,7 +89,7 @@
         },
         {
           "command": "proxy-mocksy.openConfig",
-          "when": "view == proxy-mocksy.view",
+          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig",
           "group": "navigation@4"
         }
       ]
@@ -98,7 +101,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "cli:start": "npm run compile && node ./out/cli/cli.js"
   },
   "devDependencies": {
     "@types/koa__router": "^12.0.4",
@@ -115,6 +119,7 @@
   "dependencies": {
     "@koa/bodyparser": "^6.0.0",
     "@koa/router": "^13.1.1",
+    "commander": "^14.0.0",
     "koa": "^3.0.1",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.10.0"

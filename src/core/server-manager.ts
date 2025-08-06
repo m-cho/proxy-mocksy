@@ -9,6 +9,7 @@ import { Logger } from './logger';
 @singleton()
 export class ServerManager {
   private server: Server | null = null;
+  private portOverride?: number;
 
   constructor (
     private readonly configManipulator: ConfigManipulator,
@@ -16,10 +17,14 @@ export class ServerManager {
     private readonly logger: Logger,
   ) {}
 
-  public async startServer(): Promise<number> {
+  public async startServer(portOverride?: number): Promise<number> {
     if (this.server) {
       this.logger.log('Server already running, stopping before restarting...');
       await this.stopServer();
+    }
+
+    if (portOverride) {
+      this.portOverride = portOverride;
     }
 
     return this.initServer();
@@ -54,6 +59,9 @@ export class ServerManager {
   }
 
   private async getPort() {
+    if (this.portOverride) {
+      return this.portOverride;
+    }
     const config = await this.configManipulator.getConfig();
     return config?.port || this.configManipulator.defaultConfig.PORT;
   }
@@ -66,11 +74,11 @@ export class ServerManager {
         .use(bodyParser())
         .use(await this.serverHandler.getRoutes())
         .on('error', (err) => {
-          this.logger.error(`[ServerManager] Error starting server: ${(err as Error).message}`);
+          this.logger.error(`[ProxyMocksyServerManager] Error starting server: ${(err as Error).message}`);
           reject(err);
         })
         .listen(port, () => {
-          this.logger.log(`[ServerManager] Server is running on port ${port}`);
+          this.logger.log(`[ProxyMocksyServerManager] Server is running on port ${port}`);
           resolve(port);
         });
     });

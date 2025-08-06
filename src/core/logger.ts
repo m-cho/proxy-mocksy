@@ -1,5 +1,5 @@
 import { singleton } from "tsyringe";
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
 
 @singleton()
 export class Logger {
