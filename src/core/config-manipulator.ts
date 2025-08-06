@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { singleton } from 'tsyringe';
-import * as vscode from 'vscode';
+import { AppConfig, RunningMode } from './app-config';
 
 export type EndpointConfig = {
   response: {
@@ -22,16 +22,11 @@ export type Config = {
 
 @singleton()
 export class ConfigManipulator {
-  private get rootPath(): string | undefined {
-    const rootPath =
-      vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
-        ? vscode.workspace.workspaceFolders[0].uri.fsPath
-        : undefined;
-    if (!rootPath) {
-      return undefined;
-    }
-    return rootPath;
-  }
+  #configPath?: string; // Configuration file path
+
+  constructor (
+    private readonly appConfig: AppConfig,
+  ) {}
 
   public get defaultConfig() {
     return {
@@ -42,16 +37,27 @@ export class ConfigManipulator {
       },
     };
   }
+  
+  public get configPath(): string | undefined {
+    return this.#configPath;
+  }
+
+  public setConfigPath(path: string): void {
+    this.#configPath = path;
+  }
 
   public async getConfig(): Promise<Config | null> {
-    if (!this.rootPath) {
+    if (!this.configPath) {
       console.error('No workspace folder found. Cannot manipulate config.');
       return null;
     }
     
-    await this.ensureConfigPathExists();
+    if (!this.configPathExists()) {
+      console.warn(`Config file not found at ${this.configPath}`);
+      return null;
+    }
     
-    const configContent = await fs.promises.readFile(this.getConfigPath(), 'utf-8');
+    const configContent = await fs.promises.readFile(this.configPath, 'utf-8');
     try {
       const json = JSON.parse(configContent) as Config;
       const endpoints: Config['endpoints'] = {};
@@ -68,24 +74,16 @@ export class ConfigManipulator {
       };
     } catch (error) {
       console.error('Error parsing config file:', error);
-      return this.createDefaultConfig();
-    }
-  }
-  
-  public getConfigPath(): string {
-    return `${this.rootPath}/proxy-mocksy.config.json`;
-  }
-
-  private async ensureConfigPathExists(): Promise<void> {
-    if (!this.configPathExists()) {
-      console.log('Config file does not exist, creating default config.');
-      await this.createDefaultConfig();
+      return null;
     }
   }
 
   private configPathExists(): boolean {
+    if (!this.configPath) {
+      return false;
+    }
     try {
-      fs.accessSync(this.getConfigPath());
+      fs.accessSync(this.configPath);
     } catch (err) {
       return false;
     }
@@ -93,12 +91,15 @@ export class ConfigManipulator {
   }
 
   private async createDefaultConfig(): Promise<Config> {
+    if (!this.configPath) {
+      throw new Error('Config path is not set.');
+    }
     const defaultConfig: Config = {
       version: '1.0',
       port: this.defaultConfig.PORT,
       endpoints: {}
     };
-    await fs.promises.writeFile(this.getConfigPath(), JSON.stringify(defaultConfig, null, 2));
+    await fs.promises.writeFile(this.configPath, JSON.stringify(defaultConfig, null, 2));
     return defaultConfig;
   }
 }

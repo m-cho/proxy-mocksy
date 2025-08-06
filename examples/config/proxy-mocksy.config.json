@@ -1,0 +1,68 @@
+{
+  "version": "1.0",
+  "port": 8888,
+  "endpoints": {
+    "/example": {
+      "get": {
+        "response": {
+          "status": 200,
+          "body": {
+            "message": "This is a mock response"
+          }
+        }
+      },
+      "post": {
+        "response": {
+          "status": 201,
+          "body": {
+            "message": "Resource created successfully"
+          }
+        }
+      },
+      "put": {
+        "response": {
+          "status": 200,
+          "body": {
+            "message": "This is big mock response with a lot of details",
+            "details": {
+              "id": 12345,
+              "name": "Sample Item",
+              "description": "This item is a sample for testing purposes.",
+              "attributes": {
+                "color": "blue",
+                "size": "large",
+                "tags": ["mock", "test", "example"]
+              },
+              "created_at": "2023-10-01T12:00:00Z",
+              "updated_at": "2023-10-01T12:00:00Z"
+            }
+          }
+        }
+      }
+    },
+    "/example/:id": {
+      "get": {
+        "response": {
+          "status": 200,
+          "body": {
+            "message": "Resource details for ID {{params.id}}",
+            "id": "{{params.id}}"
+          }
+        }
+      },
+      "patch": {
+        "response": {
+          "status": 200,
+          "body": {
+            "message": "Field {{ body.field }} of resource with ID {{ params.id }} updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "response": {
+          "status": 204
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,14 @@
 import "reflect-metadata";
 import * as vscode from 'vscode';
-import { container } from 'tsyringe'; 
+import { container } from 'tsyringe';
 import { EndpointsProvider } from './tree-view/endpoints-provider';
 import { Logger } from "../core/logger";
-import { SERVER_PORT_CONTEXT, SERVER_RUNNING_CONTEXT } from "./context";
+import { HAS_CONFIG, SERVER_PORT_CONTEXT, SERVER_RUNNING_CONTEXT } from "./context";
 import { ConfigManipulator } from "../core/config-manipulator";
 import { EventManager } from "./event-manager";
 import { OPEN_CONFIG_COMMAND, REFRESH_COMMAND, SHOW_OUTPUT_COMMAND, START_SERVER_COMMAND, STOP_SERVER_COMMAND } from "./commands";
 import { createStatusBarItem, getStatusBarToolbarText, getStatusBarCommand, getStatusBarText } from "./status-bar";
+import { AppConfig, RunningMode } from "../core/app-config";
 
 export function createOutputChannel(name: string, logger: Logger): vscode.OutputChannel {
   const outputChannel = vscode.window.createOutputChannel(name);
@@ -15,17 +16,29 @@ export function createOutputChannel(name: string, logger: Logger): vscode.Output
   return outputChannel;
 }
 
-export function activate({ subscriptions }: vscode.ExtensionContext) {
+export async function activate({ subscriptions }: vscode.ExtensionContext) {
 	console.log('proxy-mocksy is now active!');
 
+	const appConfig = container.resolve(AppConfig);
+	appConfig.registerConfig(RunningMode.EXTENSION);
 	const endpointsProvider = container.resolve(EndpointsProvider);
 	const logger = container.resolve(Logger);
 	const configManipulator = container.resolve(ConfigManipulator);
 	const eventManager = container.resolve(EventManager);
 
+	const rootPath =
+		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
+			? vscode.workspace.workspaceFolders[0].uri.fsPath
+			: undefined;
+	
+	if (rootPath) {
+		configManipulator.setConfigPath(`${rootPath}/proxy-mocksy.config.json`);
+	}
+
 	// Set initial context variables
 	vscode.commands.executeCommand('setContext', SERVER_RUNNING_CONTEXT, false);
 	vscode.commands.executeCommand('setContext', SERVER_PORT_CONTEXT, configManipulator.defaultConfig.PORT);
+	vscode.commands.executeCommand('setContext', HAS_CONFIG, !!await configManipulator.getConfig());
 
 	const outputChannel = createOutputChannel('Proxy Mocksy', logger);
 	subscriptions.push(outputChannel);
@@ -48,7 +61,10 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 	subscriptions.push(
 		vscode.commands.registerCommand(
 			REFRESH_COMMAND,
-			() => endpointsProvider.refresh()
+			async () => {
+				await endpointsProvider.refresh();
+				vscode.commands.executeCommand('setContext', HAS_CONFIG, !!await configManipulator.getConfig());
+			}
 		),
 	);
 	subscriptions.push(

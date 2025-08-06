@@ -69,7 +69,7 @@ export class EndpointsProvider implements vscode.TreeDataProvider<EndpointTreeIt
   }
 
   public async openConfig(): Promise<void> {
-    const configPath = this.configManipulator.getConfigPath();
+    const configPath = this.configManipulator.configPath;
     if (configPath) {
       const doc = await vscode.workspace.openTextDocument(configPath);
       await vscode.window.showTextDocument(doc);
