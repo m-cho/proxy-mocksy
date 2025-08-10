@@ -2,11 +2,10 @@
 import "reflect-metadata";
 import { program } from "commander";
 import { container } from 'tsyringe';
-import { ConfigManipulator } from "../core/config-manipulator";
-import { ServerManager } from "../core/server-manager";
-import { AppConfig, RunningMode } from "../core/app-config";
+import { AppConfig, ConfigManipulator, ServerManager, RunningMode } from "@proxy-mocksy/core";
+import path from "path";
 
-const packageJson = require("../../package.json");
+const packageJson = require("../package.json");
 
 program
   .name(packageJson.name)
@@ -20,7 +19,7 @@ program
     appConfig.registerConfig(RunningMode.CLI);
 
     const configManipulator = container.resolve(ConfigManipulator);
-    configManipulator.setConfigPath(options.config);
+    configManipulator.setConfigPath(path.resolve(options.config));
 
     try {
       await configManipulator.getConfig();

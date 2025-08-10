@@ -1,0 +1,113 @@
+{
+  "name": "@proxy-mocksy/vscode-extension",
+  "displayName": "Proxy Mocksy",
+  "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
+  "version": "0.0.1",
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "pretest": "npm run build && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "clean": "tsc -b --clean"
+  },
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "icon": "resources/images/proxy-mocksy-256.png",
+  "galleryBanner": {
+    "color": "#1E1E1E",
+    "theme": "dark"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "proxy-mocksy.showOutput",
+        "title": "Proxy Mocksy: Show Output",
+        "icon": "$(output)"
+      },
+      {
+        "command": "proxy-mocksy.refresh",
+        "title": "Proxy Mocksy: Refresh Mocked Endpoints",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "proxy-mocksy.startServer",
+        "title": "Proxy Mocksy: Start Server",
+        "icon": "$(play)"
+      },
+      {
+        "command": "proxy-mocksy.stopServer",
+        "title": "Proxy Mocksy: Stop Server",
+        "icon": "$(stop)"
+      },
+      {
+        "command": "proxy-mocksy.openConfig",
+        "title": "Proxy Mocksy: Open Config",
+        "icon": "$(settings-gear)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "proxy-mocksy",
+          "title": "Proxy Mocksy",
+          "icon": "resources/icons/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "proxy-mocksy": [
+        {
+          "id": "proxy-mocksy.view",
+          "name": "",
+          "icon": "$(server-process)"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "proxy-mocksy.startServer",
+          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig && !proxy-mocksy.serverRunning",
+          "group": "navigation@1"
+        },
+        {
+          "command": "proxy-mocksy.stopServer",
+          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig && proxy-mocksy.serverRunning",
+          "group": "navigation@1"
+        },
+        {
+          "command": "proxy-mocksy.refresh",
+          "when": "view == proxy-mocksy.view",
+          "group": "navigation@2"
+        },
+        {
+          "command": "proxy-mocksy.showOutput",
+          "when": "view == proxy-mocksy.view",
+          "group": "navigation@3"
+        },
+        {
+          "command": "proxy-mocksy.openConfig",
+          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig",
+          "group": "navigation@4"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/vscode": "^1.102.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  },
+  "dependencies": {
+    "@proxy-mocksy/core": "*"
+  }
+}
