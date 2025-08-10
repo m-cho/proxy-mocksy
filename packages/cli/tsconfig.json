@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./out",
+    "module": "node20",
+    "target": "es2022",
+    "types": ["node"],
+    "lib": ["esnext"],
+  },
+  "references": [
+    { "path": "../core" },
+  ]
+}

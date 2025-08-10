@@ -1,0 +1,34 @@
+{
+  "name": "@proxy-mocksy/cli",
+  "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
+  "version": "0.0.1",
+  "main": "./out/cli.js",
+  "bin": {
+    "proxy-mocksy": "./out/cli.js"
+  },
+  "files": [
+    "/out"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "start": "node ./out/cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "tsc -b --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-cho/proxy-mocksy.git"
+  },
+  "author": "Milan Stojimirov",
+  "license": "LGPL-2.1-only",
+  "bugs": {
+    "url": "https://github.com/m-cho/proxy-mocksy/issues"
+  },
+  "homepage": "https://github.com/m-cho/proxy-mocksy#readme",
+  "dependencies": {
+    "@proxy-mocksy/core": "*",
+    "commander": "^14.0.0"
+  },
+  "devDependencies": {
+  }
+}

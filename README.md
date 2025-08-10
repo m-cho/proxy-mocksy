@@ -26,22 +26,17 @@ A local mock server with VS Code integration and CLI support for accelerated dev
 
 ## Getting Started
 
-### VS Code Extension
-1. **Install the Extension**: Install Proxy Mocksy from the VS Code marketplace
-2. **Open Your Project**: Open any workspace folder in VS Code
-3. **Start the Server**: Click the play button in the Proxy Mocksy activity bar panel
-4. **Configure Endpoints**: A `proxy-mocksy.config.json` file will be created automatically
-
 ### CLI Usage
 ```bash
-# Install globally (if published)
-npm install -g proxy-mocksy
+# Install globally
+npm install -g @proxy-mocksy/cli
 
-# Or run locally after cloning
-npm run cli:start
+# Or run it using using npx
+npx proxy-mocksy
 
 # CLI options
-proxy-mocksy --config ./my-config.json --port 3000
+proxy-mocksy --config ./proxy-mocksy-config.json
+proxy-mocksy --config ./proxy-mocksy-config.json --port 3000
 proxy-mocksy --help
 ```
 
@@ -50,6 +45,13 @@ proxy-mocksy --help
 - `-p, --port <number>`: Port to run the server on (overrides config file)
 - `-h, --help`: Show help information
 - `-V, --version`: Show version number
+
+
+### VS Code Extension (_It's not published yet_)
+1. **Install the Extension**: Install Proxy Mocksy from the VS Code marketplace
+2. **Open Your Project**: Open any workspace folder in VS Code
+3. **Start the Server**: Click the play button in the Proxy Mocksy activity bar panel
+4. **Configure Endpoints**: A `proxy-mocksy.config.json` file will be created automatically
 
 ## Configuration
 
@@ -200,14 +202,14 @@ All commands are available through the Command Palette (`Ctrl+Shift+P` / `Cmd+Sh
 
 ### CLI Usage Example
 ```bash
+# Start with custom config
+proxy-mocksy --config ./api-mocks.json --port 3000
+
 # Start with custom config and port
 proxy-mocksy --config ./api-mocks.json --port 3000
 
 # Use default config file (proxy-mocksy.config.json)
 proxy-mocksy
-
-# Development workflow
-npm run compile && proxy-mocksy --port 8080
 ```
 
 ## Requirements

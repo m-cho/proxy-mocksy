@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
 import { singleton } from 'tsyringe';
 import { EndpointPathItem } from './endpoint-path-item';
-import { ConfigManipulator } from '../../core/config-manipulator';
+import { ConfigManipulator, ServerManager } from '@proxy-mocksy/core';
 import { EndpointMethodItem } from './endpoint-method-item';
-import { ServerManager } from '../../core/server-manager';
 import { EventManager } from '../event-manager';
 
 type EndpointTreeItem = EndpointPathItem | EndpointMethodItem;

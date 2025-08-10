@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
-import { EndpointConfig } from '../../core/config-manipulator';
+import { EndpointConfig } from '@proxy-mocksy/core';
 
 export class EndpointMethodItem extends vscode.TreeItem {
   constructor(
     public readonly path: string,
     public readonly method: string,
     public readonly endpointConfig: EndpointConfig,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.Expanded
+    public override readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.Expanded
   ) {
     super(`[${method.toUpperCase()}]`, collapsibleState);
     this.tooltip = `${this.label} ${this.path}`;
@@ -18,5 +18,5 @@ export class EndpointMethodItem extends vscode.TreeItem {
     this.description = `Status ${status} • ${bodyText}`;
   }
 
-  contextValue = 'endpointMethodItem';
+  override contextValue = 'endpointMethodItem';
 }

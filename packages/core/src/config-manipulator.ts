@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { singleton } from 'tsyringe';
-import { AppConfig, RunningMode } from './app-config';
 
 export type EndpointConfig = {
   response: {
@@ -23,10 +22,6 @@ export type Config = {
 @singleton()
 export class ConfigManipulator {
   #configPath?: string; // Configuration file path
-
-  constructor (
-    private readonly appConfig: AppConfig,
-  ) {}
 
   public get defaultConfig() {
     return {
@@ -88,18 +83,5 @@ export class ConfigManipulator {
       return false;
     }
     return true;
-  }
-
-  private async createDefaultConfig(): Promise<Config> {
-    if (!this.configPath) {
-      throw new Error('Config path is not set.');
-    }
-    const defaultConfig: Config = {
-      version: '1.0',
-      port: this.defaultConfig.PORT,
-      endpoints: {}
-    };
-    await fs.promises.writeFile(this.configPath, JSON.stringify(defaultConfig, null, 2));
-    return defaultConfig;
   }
 }
