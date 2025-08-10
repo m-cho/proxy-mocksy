@@ -1,0 +1,35 @@
+{
+  "name": "@proxy-mocksy/core",
+  "description": "@proxy-mocksy/core is the core dependency for the @proxy-mocksy/cli package.",
+  "version": "0.0.5",
+  "main": "./out/index.js",
+  "files": [
+    "/out"
+  ],
+  "scripts": {
+    "build": "tsc -p ./",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "tsc -b --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-cho/proxy-mocksy.git"
+  },
+  "author": "Milan Stojimirov",
+  "license": "LGPL-2.1-only",
+  "bugs": {
+    "url": "https://github.com/m-cho/proxy-mocksy/issues"
+  },
+  "homepage": "https://github.com/m-cho/proxy-mocksy#readme",
+  "dependencies": {
+    "@koa/bodyparser": "^6.0.0",
+    "@koa/router": "^13.1.1",
+    "koa": "^3.0.1",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^3.0.0",
+    "@types/koa__router": "^12.0.4"
+  }
+}
