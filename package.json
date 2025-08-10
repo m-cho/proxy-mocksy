@@ -1,127 +1,44 @@
 {
   "name": "proxy-mocksy",
-  "displayName": "Proxy Mocksy",
   "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.102.0"
-  },
-  "categories": [
-    "Other"
+  "workspaces": [
+    "packages/*"
   ],
-  "activationEvents": [],
-  "main": "./out/extension/extension.js",
-  "icon": "resources/images/proxy-mocksy-256.png",
-  "galleryBanner": {
-    "color": "#1E1E1E",
-    "theme": "dark"
-  },
-  "bin": {
-    "proxy-mocksy": "./out/cli/cli.js"
-  },
-  "contributes": {
-    "commands": [
-      {
-        "command": "proxy-mocksy.showOutput",
-        "title": "Proxy Mocksy: Show Output",
-        "icon": "$(output)"
-      },
-      {
-        "command": "proxy-mocksy.refresh",
-        "title": "Proxy Mocksy: Refresh Mocked Endpoints",
-        "icon": "$(refresh)"
-      },
-      {
-        "command": "proxy-mocksy.startServer",
-        "title": "Proxy Mocksy: Start Server",
-        "icon": "$(play)"
-      },
-      {
-        "command": "proxy-mocksy.stopServer",
-        "title": "Proxy Mocksy: Stop Server",
-        "icon": "$(stop)"
-      },
-      {
-        "command": "proxy-mocksy.openConfig",
-        "title": "Proxy Mocksy: Open Config",
-        "icon": "$(settings-gear)"
-      }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "proxy-mocksy",
-          "title": "Proxy Mocksy",
-          "icon": "resources/icons/icon.svg"
-        }
-      ]
-    },
-    "views": {
-      "proxy-mocksy": [
-        {
-          "id": "proxy-mocksy.view",
-          "name": "",
-          "icon": "$(server-process)"
-        }
-      ]
-    },
-    "menus": {
-      "view/title": [
-        {
-          "command": "proxy-mocksy.startServer",
-          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig && !proxy-mocksy.serverRunning",
-          "group": "navigation@1"
-        },
-        {
-          "command": "proxy-mocksy.stopServer",
-          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig && proxy-mocksy.serverRunning",
-          "group": "navigation@1"
-        },
-        {
-          "command": "proxy-mocksy.refresh",
-          "when": "view == proxy-mocksy.view",
-          "group": "navigation@2"
-        },
-        {
-          "command": "proxy-mocksy.showOutput",
-          "when": "view == proxy-mocksy.view",
-          "group": "navigation@3"
-        },
-        {
-          "command": "proxy-mocksy.openConfig",
-          "when": "view == proxy-mocksy.view && proxy-mocksy:hasConfig",
-          "group": "navigation@4"
-        }
-      ]
-    }
-  },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test",
-    "cli:start": "npm run compile && node ./out/cli/cli.js"
+    "build:all": "turbo run build",
+    "build:graph": "turbo run graph",
+
+    "### CLI Commands ###": "",
+    "cli:start": "turbo @proxy-mocksy/cli#start",
+    "cli:start:withExample": "turbo @proxy-mocksy/cli#start -- --config ../../examples/config/proxy-mocksy.config.json",
+    "cli:build": "turbo @proxy-mocksy/cli#build",
+    "cli:clean": "turbo @proxy-mocksy/cli#clean",
+
+    "### VSCode Extension": "",
+    "vscode-extension:build": "turbo @proxy-mocksy/vscode-extension#build",
+    "vscode-extension:watch": "turbo run watch --filter=@proxy-mocksy/vscode-extension"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-cho/proxy-mocksy.git"
+  },
+  "author": "Milan Stojimirov",
+  "bugs": {
+    "url": "https://github.com/m-cho/proxy-mocksy/issues"
+  },
+  "homepage": "https://github.com/m-cho/proxy-mocksy#readme",
+  "packageManager": "npm@10.8.2",
+  "dependencies": {},
   "devDependencies": {
-    "@types/koa__router": "^12.0.4",
-    "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
-    "@types/vscode": "^1.102.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
-    "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.25.1",
-    "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "@koa/bodyparser": "^6.0.0",
-    "@koa/router": "^13.1.1",
-    "commander": "^14.0.0",
-    "koa": "^3.0.1",
-    "reflect-metadata": "^0.2.2",
-    "tsyringe": "^4.10.0"
+    "turbo": "^2.5.5",
+    "typescript": "^5.8.3",
+    "rollup": "^4.46.2",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.4"
   }
 }

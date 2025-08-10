@@ -2,13 +2,11 @@ import "reflect-metadata";
 import * as vscode from 'vscode';
 import { container } from 'tsyringe';
 import { EndpointsProvider } from './tree-view/endpoints-provider';
-import { Logger } from "../core/logger";
+import { Logger, ConfigManipulator, AppConfig, RunningMode } from "@proxy-mocksy/core";
 import { HAS_CONFIG, SERVER_PORT_CONTEXT, SERVER_RUNNING_CONTEXT } from "./context";
-import { ConfigManipulator } from "../core/config-manipulator";
 import { EventManager } from "./event-manager";
 import { OPEN_CONFIG_COMMAND, REFRESH_COMMAND, SHOW_OUTPUT_COMMAND, START_SERVER_COMMAND, STOP_SERVER_COMMAND } from "./commands";
 import { createStatusBarItem, getStatusBarToolbarText, getStatusBarCommand, getStatusBarText } from "./status-bar";
-import { AppConfig, RunningMode } from "../core/app-config";
 
 export function createOutputChannel(name: string, logger: Logger): vscode.OutputChannel {
   const outputChannel = vscode.window.createOutputChannel(name);
@@ -26,10 +24,7 @@ export async function activate({ subscriptions }: vscode.ExtensionContext) {
 	const configManipulator = container.resolve(ConfigManipulator);
 	const eventManager = container.resolve(EventManager);
 
-	const rootPath =
-		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
-			? vscode.workspace.workspaceFolders[0].uri.fsPath
-			: undefined;
+	const rootPath = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 	
 	if (rootPath) {
 		configManipulator.setConfigPath(`${rootPath}/proxy-mocksy.config.json`);

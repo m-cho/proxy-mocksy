@@ -3,7 +3,7 @@ import { EventEmitter } from "vscode";
 
 export interface ServerStatusChangedEvent {
   isRunning: boolean;
-  port?: number;
+  port: number | undefined;
 }
 
 @singleton()
