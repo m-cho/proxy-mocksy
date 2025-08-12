@@ -1,0 +1,9 @@
+{
+  "name": "@proxy-mocksy/docker",
+  "version": "0.0.6",
+  "private": true,
+  "description": "Docker build context for Proxy Mocksy CLI server.",
+  "scripts": {
+    "build": "docker build -f ./Dockerfile -t milancho/proxy-mocksy:latest -t milancho/proxy-mocksy:0.0.6 ../../"
+  }
+}

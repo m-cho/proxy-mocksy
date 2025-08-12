@@ -2,7 +2,7 @@
   "name": "@proxy-mocksy/cli",
   "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./out/cli.js",
   "bin": {
     "proxy-mocksy": "out/cli.js"
@@ -11,7 +11,7 @@
     "/out"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc -p ./",
     "start": "node ./out/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "tsc -b --clean"
@@ -32,7 +32,5 @@
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.10.0"
   },
-  "devDependencies": {
-    "rollup-plugin-copy": "^3.5.0"
-  }
+  "devDependencies": {}
 }

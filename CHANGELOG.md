@@ -1,8 +1,28 @@
 # Changelog
 
-## [Unreleased]
+## [0.0.6] - 2025-08-12
 
 ### Added
+- **Docker Package**: Containerized deployment with Docker Hub publishing
+- **Docker Support**: Multi-stage Dockerfile for optimized production builds
+- **Container Integration**: Volume mounting for configuration files
+- **Turborepo Docker Tasks**: Build, publish, and run tasks for Docker workflow
+- **Package-specific Docker documentation**: Individual README for Docker package
+
+### Docker Features
+- **Multi-stage Build**: Optimized Docker image with builder and runner stages
+- **Volume Support**: Mount configuration files at runtime
+- **Port Configuration**: Flexible port mapping (default: 80 in container, 8888 on host)
+- **Docker Hub Ready**: Published as `milancho/proxy-mocksy` with versioned tags
+- **Docker Compose Support**: Easy orchestration with compose files
+
+## [0.0.5] - 2025-08-10
+
+### Added
+- **Monorepo Architecture**: Split project into three packages (`@proxy-mocksy/core`, `@proxy-mocksy/cli`, `@proxy-mocksy/vscode-extension`)
+- **Core Package**: Shared logic for server management, configuration, and dependency injection
+- **CLI Package**: Standalone command-line tool with Commander.js integration
+- **VS Code Extension Package**: Visual interface with activity bar, tree view, and status bar integration
 - Local mock server with configurable endpoints
 - VS Code activity bar view for endpoint management
 - Tree view displaying configured endpoints with HTTP methods
@@ -23,11 +43,23 @@
 - Example endpoints for `/example` and `/example/:id` with all major HTTP methods
 - Support for PATCH and DELETE with dynamic and static responses
 - Improved template variable usage with flexible spacing (e.g., `{{ body.field }}`, `{{ params.id }}`)
+- **Package-specific documentation**: Individual README files for each package
+- **Turborepo integration**: Build system and workspace management
+- **TypeScript project references**: Proper dependency resolution between packages
+
+### Architecture
+- **@proxy-mocksy/core**: Koa server, config manipulation, logger, response parsing, DI container
+- **@proxy-mocksy/cli**: Commander.js CLI with config and port options
+- **@proxy-mocksy/vscode-extension**: Tree view provider, status bar, commands, event management
+- **@proxy-mocksy/docker**: Multi-stage Docker build with optimized production runtime
 
 ### Features
 - Server management with single-click start/stop
-- JSON-based configuration with hot-reload
-- Template variables for dynamic responses
-- Native VS Code integration
-- CLI usage for headless/local development and automation
-- Cross-platform executable via npm bin
+- JSON-based configuration with hot-reload capability
+- Template variables for dynamic responses based on request data
+- Native VS Code integration with visual management
+- CLI usage for headless/local development and automation workflows
+- Cross-platform executable via npm bin configuration
+- Dependency injection architecture for extensibility
+- Docker containerization for consistent deployment across environments
+- Volume-mounted configuration for flexible Docker usage

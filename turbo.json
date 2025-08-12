@@ -7,6 +7,18 @@
     },
     "start": {
       "dependsOn": ["^build"]
+    },
+    "docker:build": {
+      "cache": false,
+      "outputs": []
+    },
+    "docker:publish": {
+      "cache": false,
+      "outputs": []
+    },
+    "docker:startWithExample": {
+      "cache": false,
+      "outputs": []
     }
   }
 }

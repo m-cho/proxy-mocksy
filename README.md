@@ -2,6 +2,15 @@
 
 A local mock server with VS Code integration and CLI support for accelerated development. Proxy Mocksy allows you to quickly set up mock API endpoints both within VS Code and as a standalone CLI tool, perfect for frontend development, API testing, automation, and prototyping.
 
+## Packages
+
+This is a monorepo containing four packages:
+
+- **[@proxy-mocksy/core](packages/core/README.md)** – Core logic, server management, configuration handling, and shared types
+- **[@proxy-mocksy/cli](packages/cli/README.md)** – Command-line interface for running the mock server
+- **[@proxy-mocksy/vscode-extension](packages/vscode-extension/README.md)** – VS Code extension for visual management and integration
+- **[@proxy-mocksy/docker](packages/docker/README.md)** – Docker containerization for easy deployment
+
 ## Features
 
 - 🚀 **Quick Setup**: Start a mock server instantly from VS Code or command line
@@ -12,244 +21,87 @@ A local mock server with VS Code integration and CLI support for accelerated dev
 - 🎨 **Template Variables**: Dynamic responses using request data
 - 🛠️ **Development Focused**: Built for both interactive and headless workflows
 - 💻 **CLI Support**: Run as standalone tool for automation and CI/CD
+- 🐳 **Docker Ready**: Containerized deployment for consistency across environments
 
-### Visual Interface (VS Code Extension)
+## Quick Start
 
-- **Activity Bar Integration**: Dedicated Proxy Mocksy panel in the activity bar
-- **Tree View**: Organized display of endpoints grouped by path and HTTP method
-- **Status Bar**: Real-time server status and port information
-- **Command Palette**: All commands accessible via `Ctrl+Shift+P`
-
-### Supported HTTP Methods
-
-- GET, POST, PUT, PATCH, DELETE, OPTIONS
-
-## Getting Started
-
-### CLI Usage
+### CLI
 ```bash
 # Install globally
 npm install -g @proxy-mocksy/cli
 
-# Or run it using using npx
-npx @proxy-mocksy/cli
-
-# CLI options
-proxy-mocksy --config ./proxy-mocksy-config.json
-proxy-mocksy --config ./proxy-mocksy-config.json --port 3000
-proxy-mocksy --help
-```
-
-**CLI Options:**
-- `-c, --config <path>`: Path to configuration file (default: `./proxy-mocksy.config.json`)
-- `-p, --port <number>`: Port to run the server on (overrides config file)
-- `-h, --help`: Show help information
-- `-V, --version`: Show version number
-
-
-### VS Code Extension (_It's not published yet_)
-1. **Install the Extension**: Install Proxy Mocksy from the VS Code marketplace
-2. **Open Your Project**: Open any workspace folder in VS Code
-3. **Start the Server**: Click the play button in the Proxy Mocksy activity bar panel
-4. **Configure Endpoints**: A `proxy-mocksy.config.json` file will be created automatically
-
-## Configuration
-
-Both the VS Code extension and CLI use a `proxy-mocksy.config.json` file:
-
-```json
-{
-  "version": "1.0",
-  "port": 8888,
-  "endpoints": {
-    "/example": {
-      "get": {
-        "response": {
-          "status": 200,
-          "body": {
-            "message": "This is a mock response"
-          }
-        }
-      },
-      "post": {
-        "response": {
-          "status": 201,
-          "body": {
-            "message": "Resource created successfully"
-          }
-        }
-      },
-      "put": {
-        "response": {
-          "status": 200,
-          "body": {
-            "message": "This is big mock response with a lot of details",
-            "details": {
-              "id": 12345,
-              "name": "Sample Item",
-              "description": "This item is a sample for testing purposes.",
-              "attributes": {
-                "color": "blue",
-                "size": "large",
-                "tags": ["mock", "test", "example"]
-              },
-              "created_at": "2023-10-01T12:00:00Z",
-              "updated_at": "2023-10-01T12:00:00Z"
-            }
-          }
-        }
-      }
-    },
-    "/example/:id": {
-      "get": {
-        "response": {
-          "status": 200,
-          "body": {
-            "message": "Resource details for ID {{params.id}}",
-            "id": "{{params.id}}"
-          }
-        }
-      },
-      "patch": {
-        "response": {
-          "status": 200,
-          "body": {
-            "message": "Field {{ body.field }} of resource with ID {{ params.id }} updated successfully"
-          }
-        }
-      },
-      "delete": {
-        "response": {
-          "status": 204
-        }
-      }
-    }
-  }
-}
-```
-
-## Template Variables
-
-Use template variables in your response bodies to create dynamic responses:
-
-- `{{params.paramName}}` - URL parameters (e.g., `/example/:id` → `{{params.id}}`)
-- `{{query.queryName}}` - Query string parameters (e.g., `?search=term` → `{{query.search}}`)
-- `{{body.fieldName}}` - Request body fields (e.g., POST data → `{{body.name}}`)
-
-**Flexible spacing**: Template variables support flexible spacing:
-- `{{params.id}}` - no spaces
-- `{{ params.id }}` - spaces around content
-- `{{params.id }}` - space after
-- `{{ params.id}}` - space before
-
-## Commands
-
-All commands are available through the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
-
-- **Proxy Mocksy: Start Server** - Start the mock server
-- **Proxy Mocksy: Stop Server** - Stop the mock server  
-- **Proxy Mocksy: Refresh Mocked Endpoints** - Reload configuration and restart server
-- **Proxy Mocksy: Show Output** - Show server logs and debug information
-- **Proxy Mocksy: Open Config** - Open the configuration file for editing
-
-## Usage Examples
-
-### Basic Example Endpoint
-```json
-{
-  "/example": {
-    "get": {
-      "response": {
-        "status": 200,
-        "body": {
-          "message": "This is a mock response"
-        }
-      }
-    }
-  }
-}
-```
-
-### Dynamic Path and PATCH/DELETE Example
-```json
-{
-  "/example/:id": {
-    "get": {
-      "response": {
-        "status": 200,
-        "body": {
-          "message": "Resource details for ID {{params.id}}",
-          "id": "{{params.id}}"
-        }
-      }
-    },
-    "patch": {
-      "response": {
-        "status": 200,
-        "body": {
-          "message": "Field {{ body.field }} of resource with ID {{ params.id }} updated successfully"
-        }
-      }
-    },
-    "delete": {
-      "response": {
-        "status": 204
-      }
-    }
-  }
-}
-```
-
-### CLI Usage Example
-```bash
-# Start with custom config
-proxy-mocksy --config ./api-mocks.json --port 3000
-
-# Start with custom config and port
-proxy-mocksy --config ./api-mocks.json --port 3000
-
-# Use default config file (proxy-mocksy.config.json)
+# Run with default config
 proxy-mocksy
+
+# Or with custom config and port
+proxy-mocksy --config ./proxy-mocksy-config.json --port 3000
+
+# Or use npx (no installation required)
+npx @proxy/mocksy/cli --config ./proxy-mocksy-config.json --port 3000
 ```
 
-## Requirements
+### Docker
+```bash
+# Pull and run with your config
+docker pull milancho/proxy-mocksy:latest
 
-**VS Code Extension:**
-- VS Code 1.102.0 or higher
-- Node.js (bundled with VS Code)
+docker run -p 8888:80 \
+  -v $(pwd)/proxy-mocksy.config.json:/app/config/proxy-mocksy.config.json \
+  milancho/proxy-mocksy:latest
 
-**CLI:**
-- Node.js 20+ (for Commander.js support)
-- npm or yarn for installation
+# Your mock server is now running at http://localhost:8888
+```
 
-## Extension Settings
+### VS Code Extension
+1. Install the extension (not yet published)
+2. Open a workspace folder
+3. Use the Proxy Mocksy activity bar panel to manage your mock server
 
-This extension doesn't add any VS Code settings through the configuration extension point. All configuration is done through the `proxy-mocksy.config.json` file.
+## Documentation
 
-## Known Issues
+For detailed usage instructions, see the individual package READMEs:
 
-- Configuration changes require manual refresh using the refresh button (VS Code extension)
-- Server restart may take a few seconds on some systems
-- CLI mode doesn't support hot-reload (restart required for config changes)
+- [Core Package Documentation](packages/core/README.md)
+- [CLI Package Documentation](packages/cli/README.md)
+- [VS Code Extension Documentation](packages/vscode-extension/README.md)
+- [Docker Package Documentation](packages/docker/README.md)
+
+## Development
+
+This project uses:
+- **TypeScript** for type safety
+- **Turborepo** for monorepo management
+- **TSyringe** for dependency injection
+- **Koa.js** for the HTTP server
+- **Docker** for containerization
+
+### Building
+```bash
+npm run build:all
+```
+
+### Running CLI in development
+```bash
+npm run cli:start:withExample
+```
+
+### Docker Tasks
+```bash
+# Build Docker image
+turbo run docker:build --filter=@proxy-mocksy/docker
+
+# Start container with example config
+turbo run docker:startWithExample --filter=@proxy-mocksy/docker
+```
+
+## License
+
+LGPL-2.1-only
+
+## Contributing
+
+See individual package READMEs for development setup and contribution guidelines.
 
 ---
-
-## Development and Contributing
-
-This project is built with TypeScript and uses:
-- **Koa.js** for the HTTP server
-- **TSyringe** for dependency injection  
-- **VS Code Extension API** for editor integration
-- **Commander.js** for CLI argument parsing
-- **Dual-mode architecture** supporting both extension and CLI operation
-
-## Credits
-
-- Extension logo and icons generated using AI
-- Built with love for the development community
-
-## Support
-
-For issues, feature requests, or contributions, please visit our repository.
 
 **Happy Mocking!** 🎭

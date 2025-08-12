@@ -35,10 +35,6 @@
     "@typescript-eslint/parser": "^8.31.1",
     "eslint": "^9.25.1",
     "turbo": "^2.5.5",
-    "typescript": "^5.8.3",
-    "rollup": "^4.46.2",
-    "@rollup/plugin-commonjs": "^28.0.6",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-typescript": "^12.1.4"
+    "typescript": "^5.8.3"
   }
 }
