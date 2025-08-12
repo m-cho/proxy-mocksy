@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.6] - 2025-08-12
+## [0.0.7] - 2025-08-12
 
 ### Added
 - **Docker Package**: Containerized deployment with Docker Hub publishing

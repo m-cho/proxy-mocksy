@@ -1,7 +1,7 @@
 {
   "name": "@proxy-mocksy/core",
   "description": "@proxy-mocksy/core is the core dependency for the @proxy-mocksy/cli package.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./out/index.js",
   "files": [
     "/out"
