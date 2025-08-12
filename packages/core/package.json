@@ -1,7 +1,7 @@
 {
   "name": "@proxy-mocksy/core",
   "description": "@proxy-mocksy/core is the core dependency for the @proxy-mocksy/cli package.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./out/index.js",
   "files": [
     "/out"
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/koa": "^3.0.0",
-    "@types/koa__router": "^12.0.4"
+    "@types/koa__router": "^12.0.4",
+    "@types/vscode": "^1.102.0"
   }
 }
