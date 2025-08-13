@@ -15,13 +15,15 @@ This is a monorepo containing four packages:
 
 - 🚀 **Quick Setup**: Start a mock server instantly from VS Code or command line
 - 🎯 **Visual Management**: Tree view showing all configured endpoints and methods
-- 📝 **JSON Configuration**: Simple JSON-based endpoint configuration
+- 📝 **JSON Configuration**: Simple JSON-based endpoint configuration with schema validation
 - 🔄 **Hot Reload**: Automatic server restart when configuration changes
 - 📊 **Status Integration**: Server status visible in VS Code status bar
 - 🎨 **Template Variables**: Dynamic responses using request data
 - 🛠️ **Development Focused**: Built for both interactive and headless workflows
 - 💻 **CLI Support**: Run as standalone tool for automation and CI/CD
 - 🐳 **Docker Ready**: Containerized deployment for consistency across environments
+- ✨ **IntelliSense**: Auto-completion and validation for configuration files
+- 🎯 **Context Awareness**: Smart UI that adapts to configuration file presence
 
 ## Quick Start
 
@@ -55,7 +57,8 @@ docker run -p 8888:80 \
 ### VS Code Extension
 1. Install the extension (not yet published)
 2. Open a workspace folder
-3. Use the Proxy Mocksy activity bar panel to manage your mock server
+3. Create or open a configuration file with full JSON schema support
+4. Use the Proxy Mocksy activity bar panel to manage your mock server
 
 ## Documentation
 

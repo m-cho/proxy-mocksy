@@ -42,8 +42,11 @@ export class EndpointsProvider implements vscode.TreeDataProvider<EndpointTreeIt
     }
   }
 
-  public async refresh(): Promise<void> {
+  public async refresh(dontRestartServer: boolean = false): Promise<void> {
     this._onDidChangeTreeData.fire();
+    if (dontRestartServer) {
+      return;
+    }
     this.eventManager.emitServerStatusChanged(false);
     const port = await this.serverManager.restartServer();
     this.eventManager.emitServerStatusChanged(true, port);
@@ -75,6 +78,11 @@ export class EndpointsProvider implements vscode.TreeDataProvider<EndpointTreeIt
     } else {
       vscode.window.showErrorMessage('No configuration file found.');
     }
+  }
+
+  public async createConfig(configPath: string): Promise<void> {
+    await this.configManipulator.createConfig(configPath);
+    this._onDidChangeTreeData.fire();
   }
 
   private async getEndpointConfiguration() {

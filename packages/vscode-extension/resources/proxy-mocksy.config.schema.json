@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Proxy Mocksy Config",
+  "description": "Configuration file for Proxy Mocksy mock server",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Config file version",
+      "pattern": "^\\d+\\.\\d+$",
+      "examples": ["1.0"]
+    },
+    "port": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "Port number for the mock server",
+      "examples": [8888, 3000, 8080]
+    },
+    "endpoints": {
+      "type": "object",
+      "description": "Mocked endpoints mapping with paths as keys",
+      "examples": [
+        {
+          "/examples": {
+            "get": {
+              "response": {
+                "status": 200,
+                "body": {"message": "List of examples"}
+              }
+            }
+          },
+          "/examples/:id": {
+            "get": {
+              "response": {
+                "status": 200,
+                "body": {"id": "{{params.id}}", "message": "Example details"}
+              }
+            }
+          }
+        }
+      ],
+      "patternProperties": {
+        "^/.*": {
+          "type": "object",
+          "description": "HTTP methods configuration for this endpoint path. Use :id for path parameters.",
+          "examples": ["/examples", "/examples/:id"],
+          "patternProperties": {
+            "^(get|post|put|patch|delete|options|head)$": {
+              "type": "object",
+              "description": "HTTP method configuration",
+              "properties": {
+                "response": {
+                  "type": "object",
+                  "description": "Mock response configuration",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "minimum": 100,
+                      "maximum": 599,
+                      "description": "HTTP status code",
+                      "examples": [200, 201, 204, 400, 404, 500]
+                    },
+                    "body": {
+                      "description": "Response body (can be object, array, string, number, boolean, or null). Supports templating with {{params.id}} and {{body.field}} syntax.",
+                      "examples": [
+                        {"message": "Success"},
+                        "Plain text response",
+                        ["array", "response"],
+                        42,
+                        true,
+                        null
+                      ]
+                    },
+                    "headers": {
+                      "type": "object",
+                      "description": "Response headers",
+                      "patternProperties": {
+                        "^.*$": {
+                          "type": "string"
+                        }
+                      },
+                      "examples": [
+                        {"Content-Type": "application/json"},
+                        {"X-Custom-Header": "value"}
+                      ]
+                    }
+                  },
+                  "required": ["status"],
+                  "additionalProperties": false
+                }
+              },
+              "required": ["response"],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        }
+      },
+      "additionalProperties": false,
+      "minProperties": 1
+    }
+  },
+  "required": ["version", "port", "endpoints"],
+  "additionalProperties": false
+}

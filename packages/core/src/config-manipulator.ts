@@ -73,6 +73,16 @@ export class ConfigManipulator {
     }
   }
 
+  public async createConfig(path: string): Promise<void> {
+    const defaultConfig: Config = {
+      version: this.defaultConfig.VERSION,
+      port: this.defaultConfig.PORT,
+      endpoints: {},
+    };
+    await fs.promises.writeFile(path, JSON.stringify(defaultConfig, null, 2));
+    this.setConfigPath(path);
+  }
+
   private configPathExists(): boolean {
     if (!this.configPath) {
       return false;
