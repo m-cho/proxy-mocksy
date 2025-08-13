@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- **JSON Schema Validation**: Full schema support for `proxy-mocksy.config.json` with IntelliSense and validation
+- **Config File Watching**: Automatic detection of configuration changes with hot-reload
+- **Welcome View**: Helpful interface when no configuration exists with "Create Config" button
+- **Config Creation**: Automatic config file creation through UI commands
+- **Smart Context Management**: Context keys properly synchronized between extension and package.json
+
+### VS Code Extension Features
+- **JSON Schema**: Auto-completion, validation, and inline documentation for configuration files
+- **File Watcher**: Real-time config file monitoring with intelligent server restart logic
+- **Welcome Interface**: Shows helpful message and config creation option when no config exists
+- **Context Awareness**: UI elements appear/disappear based on configuration file presence
+- **Hot Reload**: Server automatically restarts on configuration changes (when not manually stopped)
+
+### Core Package Features
+- **Config Creation**: New `createConfig()` method in `ConfigManipulator` for generating default configurations
+- **Enhanced Type Safety**: Improved TypeScript types for configuration structure
+
 ## [0.0.7] - 2025-08-12
 
 ### Added

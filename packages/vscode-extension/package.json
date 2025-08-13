@@ -71,6 +71,13 @@
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "proxy-mocksy.view",
+        "contents": "No config found. [Create Config](command:proxy-mocksy.openConfig)",
+        "when": "!proxy-mocksy:hasConfig"
+      }
+    ],
     "menus": {
       "view/title": [
         {
@@ -99,7 +106,13 @@
           "group": "navigation@4"
         }
       ]
-    }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": ["proxy-mocksy.config.json"],
+        "url": "./resources/proxy-mocksy.config.schema.json"
+      }
+    ]
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",

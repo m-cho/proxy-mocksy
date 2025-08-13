@@ -7,19 +7,27 @@ VS Code extension for Proxy Mocksy. Provides visual management of mock API endpo
 ### Visual Interface
 - **Activity Bar Panel**: Dedicated Proxy Mocksy section in VS Code activity bar
 - **Tree View**: Hierarchical display of endpoints organized by path and HTTP method
+- **Welcome View**: Helpful message and config creation button when no config exists
 - **Status Bar**: Real-time server status and port information
 - **Output Channel**: Server logs and debugging information
+
+### JSON Schema Validation
+- **IntelliSense**: Auto-completion and validation for configuration files
+- **Error Detection**: Real-time validation of configuration syntax and structure
+- **Documentation**: Inline help and examples for all configuration properties
+- **Type Safety**: Ensures correct data types and required fields
 
 ### Commands
 - **Start/Stop Server**: One-click server management
 - **Refresh Endpoints**: Reload configuration and restart server
-- **Open Config**: Quick access to configuration file
+- **Open/Create Config**: Quick access to configuration file or create new one if missing
 - **Show Output**: View server logs and debug information
 
-### Smart Context
-- Buttons and commands only appear when configuration file exists
-- Real-time status updates when server state changes
-- Auto-detection of workspace configuration files
+### Smart Context & Hot Reload
+- **Context Awareness**: Buttons and commands adapt based on configuration file presence
+- **File Watching**: Automatic detection of configuration changes with smart restart logic
+- **Real-time Updates**: Server status and tree view refresh automatically
+- **Auto-detection**: Workspace configuration files detected automatically
 
 ## Installation
 
@@ -33,13 +41,17 @@ For development/testing:
 ## Getting Started
 
 1. **Open Workspace**: Open any folder in VS Code as your workspace
-2. **Create Configuration**: The extension will look for `proxy-mocksy.config.json` in your workspace root
-3. **Manage Server**: Use the Proxy Mocksy activity bar panel to start/stop the server
-4. **View Endpoints**: Browse your configured endpoints in the tree view
+2. **Create Configuration**: 
+   - If no config exists, the extension shows a welcome message with "Create Config" button
+   - Click the button or use "Proxy Mocksy: Open Config" command to create a new configuration
+   - The extension looks for `proxy-mocksy.config.json` in your workspace root
+3. **JSON Schema Benefits**: Enjoy auto-completion, validation, and inline documentation
+4. **Manage Server**: Use the Proxy Mocksy activity bar panel to start/stop the server
+5. **View Endpoints**: Browse your configured endpoints in the tree view
 
 ## Configuration
 
-Create a `proxy-mocksy.config.json` file in your workspace root:
+Create a `proxy-mocksy.config.json` file in your workspace root. The extension provides JSON schema validation with auto-completion and inline documentation:
 
 ```json
 {
@@ -84,6 +96,12 @@ Create a `proxy-mocksy.config.json` file in your workspace root:
 }
 ```
 
+### JSON Schema Features
+- **Auto-completion**: Type-ahead suggestions for all properties
+- **Validation**: Real-time error detection and highlighting
+- **Documentation**: Hover tooltips with property descriptions and examples
+- **Type Safety**: Ensures correct data types for all configuration values
+
 ## Commands
 
 All commands are available via Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
@@ -94,7 +112,7 @@ All commands are available via Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
 | `Proxy Mocksy: Stop Server` | Stop the mock server |
 | `Proxy Mocksy: Refresh Mocked Endpoints` | Reload configuration and restart server |
 | `Proxy Mocksy: Show Output` | Open the output channel with server logs |
-| `Proxy Mocksy: Open Config` | Open the configuration file for editing |
+| `Proxy Mocksy: Open Config` | Open existing config file or create new one if missing |
 
 ## Tree View
 
@@ -154,12 +172,14 @@ docker run -p 8888:80 \
 
 See [@proxy-mocksy/cli](../cli/README.md) and [@proxy-mocksy/docker](../docker/README.md) for more options.
 
-## Context Awareness
+## Context Awareness & Hot Reload
 
-The extension intelligently shows/hides UI elements:
-- **Start/Stop buttons**: Only visible when configuration file exists
-- **Config commands**: Only available when configuration is present
-- **Status updates**: Real-time server state reflection
+The extension intelligently adapts to your workspace:
+- **Welcome View**: Shows helpful message and "Create Config" button when no configuration exists
+- **Dynamic UI**: Start/Stop buttons and commands appear only when configuration file exists
+- **File Watching**: Automatically detects configuration file changes and hot-reloads
+- **Smart Restart**: Server restarts automatically on config changes (when not manually stopped)
+- **Real-time Updates**: Status bar and tree view refresh automatically with server state changes
 
 ## Event System
 
@@ -189,8 +209,8 @@ Internal event management for:
 
 ## Known Issues
 
-- Configuration changes require manual refresh using the refresh button
 - Server restart may take a few seconds on some systems
+- Large configuration files may cause brief delays during validation
 
 ## Development
 
