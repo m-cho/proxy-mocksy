@@ -1,11 +1,11 @@
-import { singleton } from "tsyringe";
+import { injectable } from "@needle-di/core";
 
 export enum RunningMode {
   CLI = "cli",
   EXTENSION = "extension",
 }
 
-@singleton()
+@injectable()
 export class AppConfig {
   #runningMode?: RunningMode;
 

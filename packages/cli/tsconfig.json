@@ -3,12 +3,13 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./out",
-    "module": "node20",
-    "target": "es2022",
+    "module": "ES2022",
+    "target": "ES2022",
+    "moduleResolution": "bundler",
     "types": ["node"],
-    "lib": ["esnext"],
+    "lib": ["esnext", "DOM"],
   },
   "references": [
-    { "path": "../core" },
+    { "path": "../core" }
   ]
 }

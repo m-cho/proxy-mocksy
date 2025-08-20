@@ -1,9 +1,19 @@
 # @proxy-mocksy/cli
 
+[![npm version](https://img.shields.io/npm/v/@proxy-mocksy/cli)](https://www.npmjs.com/package/@proxy-mocksy/cli)
+[![JSR](https://jsr.io/badges/@proxy-mocksy/cli)](https://jsr.io/@proxy-mocksy/cli)
+[![JSR Score](https://jsr.io/badges/@proxy-mocksy/cli/score)](https://jsr.io/@proxy-mocksy/cli)
+[![npm downloads](https://img.shields.io/npm/dm/@proxy-mocksy/cli)](https://www.npmjs.com/package/@proxy-mocksy/cli)
+
 Command-line interface for Proxy Mocksy. Run a local mock server from the terminal with flexible configuration options.
+
+Available on:
+- 📦 **npm**: [`@proxy-mocksy/cli`](https://www.npmjs.com/package/@proxy-mocksy/cli)
+- 🦕 **JSR**: [`@proxy-mocksy/cli`](https://jsr.io/@proxy-mocksy/cli)
 
 ## Installation
 
+### Node.js/npm
 ```bash
 # Install globally
 npm install -g @proxy-mocksy/cli
@@ -12,8 +22,15 @@ npm install -g @proxy-mocksy/cli
 npx @proxy-mocksy/cli
 ```
 
+### Deno
+```bash
+# Run directly from JSR (recommended)
+deno run jsr:@proxy-mocksy/cli
+```
+
 ## Usage
 
+### Node.js
 ```bash
 # Specify custom configuration file
 proxy-mocksy --config ./proxy-mocksy-config.json
@@ -26,6 +43,18 @@ proxy-mocksy --help
 
 # Show version
 proxy-mocksy --version
+```
+
+### Deno
+```bash
+# Basic usage
+deno run jsr:@proxy-mocksy/cli
+
+# With custom config
+deno run jsr:@proxy-mocksy/cli --config ./proxy-mocksy-config.json
+
+# With custom port
+deno run jsr:@proxy-mocksy/cli --config ./config.json --port 3000
 ```
 
 ## CLI Options
@@ -150,8 +179,7 @@ The CLI will exit with appropriate error codes:
 
 - **@proxy-mocksy/core**: Core server logic
 - **commander**: CLI argument parsing
-- **tsyringe**: Dependency injection
-- **reflect-metadata**: Decorator support
+- **@needle-di/core**: Lightweight dependency injection (via core package)
 
 ## License
 

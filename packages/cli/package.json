@@ -1,8 +1,9 @@
 {
   "name": "@proxy-mocksy/cli",
-  "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
+  "description": "CLI tool for running local mock API servers with JSON configuration",
+  "version": "0.0.15",
   "private": false,
-  "version": "0.0.7",
+  "type": "module",
   "main": "./out/cli.js",
   "bin": {
     "proxy-mocksy": "out/cli.js"
@@ -14,7 +15,13 @@
     "build": "tsc -p ./",
     "start": "node ./out/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "tsc -b --clean"
+    "clean": "tsc -b --clean",
+    "deno:test": "deno run --import-map=import-map.json --unstable-sloppy-imports --allow-net --allow-read --allow-env ./src/cli.ts",
+    "deno:test:config": "deno run --import-map=import-map.json --unstable-sloppy-imports --allow-net --allow-read --allow-env ./src/cli.ts --config ../../examples/config/proxy-mocksy.config.json",
+    "jsr:publish": "npx jsr publish",
+    "jsr:publish-only": "npx jsr publish",
+    "jsr:dry-run": "npx jsr publish --dry-run",
+    "jsr:dry-run-only": "npx jsr publish --dry-run"
   },
   "repository": {
     "type": "git",
@@ -27,10 +34,8 @@
   },
   "homepage": "https://github.com/m-cho/proxy-mocksy#readme",
   "dependencies": {
+    "@needle-di/core": "^1.0.0",
     "@proxy-mocksy/core": "*",
-    "commander": "^14.0.0",
-    "reflect-metadata": "^0.2.2",
-    "tsyringe": "^4.10.0"
-  },
-  "devDependencies": {}
+    "commander": "^14.0.0"
+  }
 }

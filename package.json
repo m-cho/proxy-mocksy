@@ -8,15 +8,34 @@
     "build:all": "turbo run build",
     "build:graph": "turbo run graph",
 
+    "### Core commands ###": "",
+    "core:build": "turbo @proxy-mocksy/core#build",
+    "core:clean": "turbo @proxy-mocksy/core#clean",
+
     "### CLI Commands ###": "",
     "cli:start": "turbo @proxy-mocksy/cli#start",
     "cli:start:withExample": "turbo @proxy-mocksy/cli#start -- --config ../../examples/config/proxy-mocksy.config.json",
     "cli:build": "turbo @proxy-mocksy/cli#build",
     "cli:clean": "turbo @proxy-mocksy/cli#clean",
 
+    "### Deno Testing ###": "",
+    "deno:test:cli": "cd packages/cli && npm run deno:test",
+    "deno:test:cli:withExample": "cd packages/cli && npm run deno:test:config",
+
     "### VSCode Extension": "",
     "vscode-extension:build": "turbo @proxy-mocksy/vscode-extension#build",
-    "vscode-extension:watch": "turbo run watch --filter=@proxy-mocksy/vscode-extension"
+    "vscode-extension:watch": "turbo run watch --filter=@proxy-mocksy/vscode-extension",
+
+    "### JSR Publishing ###": "",
+    "jsr:publish:core": "turbo jsr:publish --filter=@proxy-mocksy/core",
+    "jsr:publish:cli": "turbo jsr:publish --filter=@proxy-mocksy/cli",
+    "jsr:publish:all": "turbo jsr:publish",
+    "jsr:publish-only:core": "turbo jsr:publish-only --filter=@proxy-mocksy/core",
+    "jsr:publish-only:cli": "turbo jsr:publish-only --filter=@proxy-mocksy/cli",
+    "jsr:dry-run:all": "turbo jsr:dry-run",
+    "jsr:dry-run-only:core": "turbo jsr:dry-run-only --filter=@proxy-mocksy/core",
+    "jsr:dry-run-only:cli": "turbo jsr:dry-run-only --filter=@proxy-mocksy/cli",
+    "jsr:sync-versions": "./sync-jsr-versions.sh"
   },
   "repository": {
     "type": "git",

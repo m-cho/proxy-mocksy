@@ -1,4 +1,4 @@
-import { singleton } from "tsyringe";
+import { injectable } from "@needle-di/core";
 import { EventEmitter } from "vscode";
 
 export interface ServerStatusChangedEvent {
@@ -6,7 +6,7 @@ export interface ServerStatusChangedEvent {
   port: number | undefined;
 }
 
-@singleton()
+@injectable()
 export class EventManager {
   private readonly _onServerStatusChanged = new EventEmitter<ServerStatusChangedEvent>();
   public readonly onServerStatusChanged = this._onServerStatusChanged.event;

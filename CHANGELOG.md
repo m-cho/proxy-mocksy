@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.0.15] - 2025-08-21
+
+### Added
+- **Deno Support**: Native compatibility with Deno runtime via JSR (JavaScript Registry)
+- **JSR Publishing**: Dual publishing to both npm and JSR for maximum compatibility
+- **JSR Integration**: Complete JSR configuration with `jsr.json` files for both core and CLI packages
+- **Turborepo JSR Support**: Integrated JSR publishing workflows with Turborepo task management
+- **Version Sync Script**: Automated script to synchronize versions across JSR configurations
+- **Enhanced Type Safety**: Added explicit return types for JSR slow-type compliance
+
+### Changed
+- **Dependency Injection**: Migrated from TSyringe to @needle-di/core for lighter weight and better ES module compatibility
+- **Module System**: Transitioned to ES2022 modules from CommonJS for modern runtime support
+- **Removed Dependencies**: Eliminated reflect-metadata dependency for reduced bundle size and better performance
+
+### CLI Features
+- **Deno Runtime**: Run CLI directly with `deno run jsr:@proxy-mocksy/cli`
+- **Cross-Runtime Compatibility**: Works seamlessly with both Node.js and Deno
+- **JSR Distribution**: Available on JavaScript Registry for Deno ecosystem
+
+### Developer Experience
+- **Dual Publishing**: Maintained npm compatibility while adding JSR support
+- **Version Management**: Automated tooling for keeping package versions in sync
+- **Build-Free Publishing**: JSR works directly with TypeScript source files
+- **Comprehensive Documentation**: Updated README files with Deno usage examples
+
 ## [Unreleased]
 
 ### Added

@@ -1,7 +1,7 @@
-import { singleton } from "tsyringe";
+import { injectable } from "@needle-di/core";
 import type * as vscode from "vscode";
 
-@singleton()
+@injectable()
 export class Logger {
   private outputChannel?: vscode.OutputChannel;
 

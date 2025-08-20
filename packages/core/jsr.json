@@ -1,0 +1,13 @@
+{
+  "name": "@proxy-mocksy/core",
+  "version": "0.0.15",
+  "description": "Internal library for @proxy-mocksy/cli - HTTP server and configuration management",
+  "exports": "./src/index.ts",
+  "publish": {
+    "include": [
+      "src/",
+      "README.md",
+      "LICENSE"
+    ]
+  }
+}
