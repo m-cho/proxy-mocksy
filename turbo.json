@@ -19,6 +19,24 @@
     "docker:startWithExample": {
       "cache": false,
       "outputs": []
+    },
+    "jsr:publish": {
+      "dependsOn": ["^jsr:publish"],
+      "cache": false,
+      "outputs": []
+    },
+    "jsr:publish-only": {
+      "cache": false,
+      "outputs": []
+    },
+    "jsr:dry-run": {
+      "dependsOn": ["^jsr:dry-run"],
+      "cache": false,
+      "outputs": []
+    },
+    "jsr:dry-run-only": {
+      "cache": false,
+      "outputs": []
     }
   }
 }

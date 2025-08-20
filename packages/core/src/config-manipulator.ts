@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import { singleton } from 'tsyringe';
+import * as fs from 'node:fs';
+import { injectable } from '@needle-di/core';
 
 export type EndpointConfig = {
   response: {
@@ -19,11 +19,19 @@ export type Config = {
   };
 };
 
-@singleton()
+type DefaultConfig = {
+  VERSION: string;
+  PORT: number;
+  ENDPOINT: {
+    STATUS_CODE: number;
+  };
+};
+
+@injectable()
 export class ConfigManipulator {
   #configPath?: string; // Configuration file path
 
-  public get defaultConfig() {
+  public get defaultConfig(): DefaultConfig {
     return {
       VERSION: '1.0',
       PORT: 8888,

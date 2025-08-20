@@ -1,7 +1,8 @@
 {
   "name": "@proxy-mocksy/core",
-  "description": "@proxy-mocksy/core is the core dependency for the @proxy-mocksy/cli package.",
-  "version": "0.0.7",
+  "description": "Internal library for @proxy-mocksy/cli - HTTP server and configuration management",
+  "version": "0.0.15",
+  "type": "module",
   "main": "./out/index.js",
   "files": [
     "/out"
@@ -9,7 +10,11 @@
   "scripts": {
     "build": "tsc -p ./",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "tsc -b --clean"
+    "clean": "tsc -b --clean",
+    "jsr:publish": "npx jsr publish",
+    "jsr:publish-only": "npx jsr publish",
+    "jsr:dry-run": "npx jsr publish --dry-run",
+    "jsr:dry-run-only": "npx jsr publish --dry-run"
   },
   "repository": {
     "type": "git",
@@ -24,9 +29,8 @@
   "dependencies": {
     "@koa/bodyparser": "^6.0.0",
     "@koa/router": "^13.1.1",
-    "koa": "^3.0.1",
-    "reflect-metadata": "^0.2.2",
-    "tsyringe": "^4.10.0"
+    "@needle-di/core": "^1.0.0",
+    "koa": "^3.0.1"
   },
   "devDependencies": {
     "@types/koa": "^3.0.0",

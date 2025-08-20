@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { STOP_SERVER_COMMAND, START_SERVER_COMMAND } from "./commands";
+import { STOP_SERVER_COMMAND, START_SERVER_COMMAND } from "./commands.js";
 
 export function getStatusBarText(isRunning: boolean, port?: number): string {
   if (isRunning) {

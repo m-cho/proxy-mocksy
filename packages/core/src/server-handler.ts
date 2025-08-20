@@ -1,17 +1,17 @@
 import Router from "@koa/router";
-import { ConfigManipulator } from "./config-manipulator";
-import { injectable } from "tsyringe";
-import { ResponseBodyParser } from "./response-body-parser";
-import { Logger } from "./logger";
+import { ConfigManipulator } from "./config-manipulator.js";
+import { injectable, inject } from "@needle-di/core";
+import { ResponseBodyParser } from "./response-body-parser.js";
+import { Logger } from "./logger.js";
 
 @injectable()
 export class ServerHandler {
   constructor (
-    private readonly configManipulator: ConfigManipulator,
-    private readonly logger: Logger,
+    private readonly configManipulator: ConfigManipulator = inject(ConfigManipulator),
+    private readonly logger: Logger = inject(Logger),
   ) {}
 
-  public async getRoutes() {
+  public async getRoutes(): Promise<Router.Middleware> {
     const router = new Router();
 
     const config = await this.configManipulator.getConfig();

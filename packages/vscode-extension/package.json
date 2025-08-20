@@ -2,7 +2,8 @@
   "name": "@proxy-mocksy/vscode-extension",
   "displayName": "Proxy Mocksy",
   "description": "Local mock server with both VS Code extension and CLI support, featuring JSON configuration, tree view management, and dynamic response templates.",
-  "version": "0.0.7",
+  "version": "0.0.15",
+  "type": "module",
   "scripts": {
     "vscode:prepublish": "npm run build",
     "build": "tsc -p ./",
@@ -109,7 +110,9 @@
     },
     "jsonValidation": [
       {
-        "fileMatch": ["proxy-mocksy.config.json"],
+        "fileMatch": [
+          "proxy-mocksy.config.json"
+        ],
         "url": "./resources/proxy-mocksy.config.schema.json"
       }
     ]
@@ -121,8 +124,7 @@
     "@vscode/test-electron": "^2.5.2"
   },
   "dependencies": {
-    "@proxy-mocksy/core": "*",
-    "reflect-metadata": "^0.2.2",
-    "tsyringe": "^4.10.0"
+    "@needle-di/core": "^1.0.0",
+    "@proxy-mocksy/core": "*"
   }
 }

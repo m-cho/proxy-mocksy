@@ -1,15 +1,29 @@
 # @proxy-mocksy/core
 
-Core logic and shared functionality for Proxy Mocksy. This package provides the HTTP server, configuration management, dependency injection setup, and shared types used by both the CLI, VS Code extension, and Docker container.
+[![npm version](https://img.shields.io/npm/v/@proxy-mocksy/core)](https://www.npmjs.com/package/@proxy-mocksy/core)
+[![JSR](https://jsr.io/badges/@proxy-mocksy/core)](https://jsr.io/@proxy-mocksy/core)
+[![JSR Score](https://jsr.io/badges/@proxy-mocksy/core/score)](https://jsr.io/@proxy-mocksy/core)
+[![npm downloads](https://img.shields.io/npm/dm/@proxy-mocksy/core)](https://www.npmjs.com/package/@proxy-mocksy/core)
+
+Internal library for [@proxy-mocksy/cli](https://www.npmjs.com/package/@proxy-mocksy/cli). This package provides the HTTP server, configuration management, dependency injection setup, and shared types used by the CLI, VS Code extension, and Docker container.
+
+Available on:
+- 📦 **npm**: [`@proxy-mocksy/core`](https://www.npmjs.com/package/@proxy-mocksy/core)
+- 🦕 **JSR**: [`@proxy-mocksy/core`](https://jsr.io/@proxy-mocksy/core)
+
+**Main Package:**
+- 📦 **npm**: [`@proxy-mocksy/cli`](https://www.npmjs.com/package/@proxy-mocksy/cli)
+- 🦕 **JSR**: [`@proxy-mocksy/cli`](https://jsr.io/@proxy-mocksy/cli)
 
 ## Features
 
 - **Koa-based HTTP Server**: Robust server implementation with middleware support
 - **Configuration Management**: JSON-based endpoint configuration with validation
 - **Template Variables**: Dynamic response parsing with request data injection
-- **Dependency Injection**: TSyringe-based DI container for modular architecture
+- **Dependency Injection**: @needle-di/core lightweight DI container for modular architecture
 - **Logger System**: Integrated logging with VS Code output channel support
 - **Response Parsing**: Flexible template variable replacement in response bodies
+- **Cross-Runtime Compatibility**: Works seamlessly with both Node.js and Deno
 
 ## Architecture
 
@@ -66,12 +80,11 @@ This package is designed to be consumed by the CLI, VS Code extension, and Docke
 - **koa**: HTTP server framework
 - **@koa/router**: Routing middleware
 - **@koa/bodyparser**: Request body parsing
-- **tsyringe**: Dependency injection container
-- **reflect-metadata**: Decorator metadata support
+- **@needle-di/core**: Lightweight dependency injection container
 
 ## Development
 
-Built with TypeScript and compiled to CommonJS for compatibility.
+Built with TypeScript and compiled to ES2022 modules for modern runtime compatibility.
 
 ```bash
 # Build the package

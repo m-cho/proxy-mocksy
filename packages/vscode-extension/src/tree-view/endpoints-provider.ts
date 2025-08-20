@@ -1,18 +1,18 @@
 import * as vscode from 'vscode';
-import { singleton } from 'tsyringe';
-import { EndpointPathItem } from './endpoint-path-item';
+import { injectable, inject } from '@needle-di/core';
+import { EndpointPathItem } from './endpoint-path-item.js';
 import { ConfigManipulator, ServerManager } from '@proxy-mocksy/core';
-import { EndpointMethodItem } from './endpoint-method-item';
-import { EventManager } from '../event-manager';
+import { EndpointMethodItem } from './endpoint-method-item.js';
+import { EventManager } from '../event-manager.js';
 
 type EndpointTreeItem = EndpointPathItem | EndpointMethodItem;
 
-@singleton()
+@injectable()
 export class EndpointsProvider implements vscode.TreeDataProvider<EndpointTreeItem> {
   constructor (
-    private readonly configManipulator: ConfigManipulator,
-    private readonly serverManager: ServerManager,
-    private readonly eventManager: EventManager,
+    private readonly configManipulator = inject(ConfigManipulator),
+    private readonly serverManager = inject(ServerManager),
+    private readonly eventManager = inject(EventManager),
   ) {}
 
   private _onDidChangeTreeData: vscode.EventEmitter<EndpointTreeItem | undefined | null | void> = new vscode.EventEmitter<EndpointTreeItem | undefined | null | void>();

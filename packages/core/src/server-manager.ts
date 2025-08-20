@@ -1,20 +1,20 @@
 import Koa from 'koa';
-import { Server } from 'http';
-import { singleton } from 'tsyringe';
-import { ConfigManipulator } from './config-manipulator';
-import { ServerHandler } from './server-handler';
+import { Server } from 'node:http';
+import { injectable, inject } from "@needle-di/core";
+import { ConfigManipulator } from './config-manipulator.js';
+import { ServerHandler } from './server-handler.js';
 import bodyParser from '@koa/bodyparser';
-import { Logger } from './logger';
+import { Logger } from './logger.js';
 
-@singleton()
+@injectable()
 export class ServerManager {
   private server: Server | null = null;
   private portOverride?: number;
 
   constructor (
-    private readonly configManipulator: ConfigManipulator,
-    private readonly serverHandler: ServerHandler,
-    private readonly logger: Logger,
+    private readonly configManipulator: ConfigManipulator = inject(ConfigManipulator),
+    private readonly serverHandler: ServerHandler = inject(ServerHandler),
+    private readonly logger: Logger = inject(Logger),
   ) {}
 
   public async startServer(portOverride?: number): Promise<number> {

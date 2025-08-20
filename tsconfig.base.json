@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-		"strict": true,
 		"experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-		"sourceMap": true,
-    "declaration": true,
     "declarationMap": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
@@ -16,9 +13,13 @@
     "noPropertyAccessFromIndexSignature": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
+		"sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "composite": true,
     "paths": {
       "@proxy-mocksy/core": [

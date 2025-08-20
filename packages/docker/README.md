@@ -1,6 +1,13 @@
 # Proxy Mocksy
 
+[![Docker Image Version](https://img.shields.io/docker/v/milancho/proxy-mocksy?label=Docker)](https://hub.docker.com/r/milancho/proxy-mocksy)
+[![Docker Pulls](https://img.shields.io/docker/pulls/milancho/proxy-mocksy)](https://hub.docker.com/r/milancho/proxy-mocksy)
+[![Docker Image Size](https://img.shields.io/docker/image-size/milancho/proxy-mocksy/latest)](https://hub.docker.com/r/milancho/proxy-mocksy)
+
 A lightweight local mock server perfect for frontend development, API testing, and prototyping. Quickly set up mock API endpoints with JSON configuration and dynamic response templates.
+
+Available on:
+- 🐳 **Docker Hub**: [`milancho/proxy-mocksy`](https://hub.docker.com/r/milancho/proxy-mocksy)
 
 ## Features
 
@@ -8,7 +15,7 @@ A lightweight local mock server perfect for frontend development, API testing, a
 - 📝 **JSON Configuration**: Simple endpoint configuration
 - 🎨 **Template Variables**: Dynamic responses using request data
 - 🔄 **All HTTP Methods**: GET, POST, PUT, PATCH, DELETE, OPTIONS
-- 💻 **Lightweight**: Based on Node.js and Koa.js
+- 💻 **Lightweight**: Based on Node.js and Koa framework
 - 🐳 **Docker Ready**: Easy deployment and consistency across environments
 
 ## Quick Start

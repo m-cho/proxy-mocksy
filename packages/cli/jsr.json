@@ -1,0 +1,19 @@
+{
+  "name": "@proxy-mocksy/cli",
+  "version": "0.0.15",
+  "description": "CLI tool for running local mock API servers with JSON configuration",
+  "exports": "./src/cli.ts",
+  "bin": {
+    "proxy-mocksy": "./src/cli.ts"
+  },
+  "imports": {
+    "@proxy-mocksy/core": "jsr:@proxy-mocksy/core@0.0.15"
+  },
+  "publish": {
+    "include": [
+      "src/",
+      "README.md",
+      "LICENSE"
+    ]
+  }
+}

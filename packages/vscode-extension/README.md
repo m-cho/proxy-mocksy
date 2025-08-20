@@ -199,7 +199,7 @@ Internal event management for:
 
 ### Integration
 - Uses `@proxy-mocksy/core` for server logic
-- TSyringe dependency injection
+- @needle-di/core lightweight dependency injection
 - VS Code Extension API integration
 
 ## Requirements

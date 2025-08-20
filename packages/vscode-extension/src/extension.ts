@@ -1,12 +1,13 @@
-import "reflect-metadata";
 import * as vscode from 'vscode';
-import { container } from 'tsyringe';
-import { EndpointsProvider } from './tree-view/endpoints-provider';
+import { Container } from '@needle-di/core';
+import { EndpointsProvider } from './tree-view/endpoints-provider.js';
 import { Logger, ConfigManipulator, AppConfig, RunningMode } from "@proxy-mocksy/core";
-import { HAS_CONFIG, SERVER_PORT_CONTEXT, SERVER_RUNNING_CONTEXT } from "./context";
-import { EventManager } from "./event-manager";
-import { OPEN_CONFIG_COMMAND, REFRESH_COMMAND, SHOW_OUTPUT_COMMAND, START_SERVER_COMMAND, STOP_SERVER_COMMAND } from "./commands";
-import { createStatusBarItem, getStatusBarToolbarText, getStatusBarCommand, getStatusBarText } from "./status-bar";
+import { HAS_CONFIG, SERVER_PORT_CONTEXT, SERVER_RUNNING_CONTEXT } from "./context.js";
+import { EventManager } from "./event-manager.js";
+import { OPEN_CONFIG_COMMAND, REFRESH_COMMAND, SHOW_OUTPUT_COMMAND, START_SERVER_COMMAND, STOP_SERVER_COMMAND } from "./commands.js";
+import { createStatusBarItem, getStatusBarToolbarText, getStatusBarCommand, getStatusBarText } from "./status-bar.js";
+
+const container = new Container();
 
 export function createOutputChannel(name: string, logger: Logger): vscode.OutputChannel {
   const outputChannel = vscode.window.createOutputChannel(name);
@@ -27,12 +28,12 @@ export async function activate({ subscriptions }: vscode.ExtensionContext) {
 	};
 	console.log('proxy-mocksy is now active!');
 
-	const appConfig = container.resolve(AppConfig);
+	const appConfig = container.get(AppConfig);
 	appConfig.registerConfig(RunningMode.EXTENSION);
-	const endpointsProvider = container.resolve(EndpointsProvider);
-	const logger = container.resolve(Logger);
-	const configManipulator = container.resolve(ConfigManipulator);
-	const eventManager = container.resolve(EventManager);
+	const endpointsProvider = container.get(EndpointsProvider);
+	const logger = container.get(Logger);
+	const configManipulator = container.get(ConfigManipulator);
+	const eventManager = container.get(EventManager);
 
 	const rootPath = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 	
@@ -135,6 +136,6 @@ export async function activate({ subscriptions }: vscode.ExtensionContext) {
 }
 
 export async function deactivate() {
-	const endpointsProvider = container.resolve(EndpointsProvider);
+	const endpointsProvider = container.get(EndpointsProvider);
 	await endpointsProvider.stopServer();
 }
