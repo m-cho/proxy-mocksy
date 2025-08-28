@@ -1,0 +1,177 @@
+name: ❓ Question
+description: Ask a question about Proxy Mocksy
+title: "[QUESTION] "
+labels: ["question"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # ❓ Question
+        
+        Have a question about Proxy Mocksy? We're here to help! Please provide as much context as possible.
+        
+        ---
+
+  - type: dropdown
+    id: product
+    attributes:
+      label: 📦 Product
+      description: Which Proxy Mocksy product is your question about?
+      multiple: true
+      options:
+        - CLI (@proxy-mocksy/cli)
+        - VS Code Extension
+        - Docker Image
+        - Core Library (@proxy-mocksy/core)
+        - General/All Products
+        - Documentation
+      default: 4
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 🏷️ Question Category
+      description: What type of question is this?
+      options:
+        - Installation/Setup - Getting started
+        - Configuration - How to configure features
+        - Usage/How-to - How to accomplish something
+        - Troubleshooting - Something isn't working as expected
+        - Best Practices - Recommended approaches
+        - Integration - Using with other tools
+        - Performance - Speed/memory questions
+        - Security - Security-related questions
+        - Comparison - How does this compare to X?
+        - Contribution - How to contribute
+        - Other
+      default: 2
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 📋 Version (if applicable)
+      description: What version are you using?
+      placeholder: "e.g., 0.0.15, latest"
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 💻 Operating System (if applicable)
+      description: What operating system are you using?
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Docker Container
+        - Not applicable
+        - Other
+      default: 4
+
+  - type: textarea
+    id: question
+    attributes:
+      label: ❓ Your Question
+      description: What would you like to know? Be as specific as possible.
+      placeholder: |
+        I'm trying to...
+        I want to know how to...
+        I'm wondering if it's possible to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📋 Context
+      description: |
+        Provide more context about your situation:
+        - What are you trying to accomplish?
+        - What have you tried so far?
+        - What specific part are you stuck on?
+      placeholder: |
+        What I'm trying to accomplish:
+        - ...
+        
+        What I've tried:
+        - ...
+        
+        Where I'm stuck:
+        - ...
+
+  - type: textarea
+    id: config
+    attributes:
+      label: ⚙️ Configuration (if applicable)
+      description: Share relevant parts of your configuration (remove sensitive data)
+      render: json
+      placeholder: |
+        {
+          "server": {
+            "port": 3001
+          },
+          "endpoints": [
+            // Your relevant configuration here
+          ]
+        }
+
+  - type: textarea
+    id: code
+    attributes:
+      label: 💻 Code Example (if applicable)
+      description: Share relevant code or commands you're working with
+      render: shell
+      placeholder: |
+        # Commands you're running
+        proxy-mocksy start --config my-config.json
+        
+        # Or code you're writing
+        import { ProxyMocksy } from '@proxy-mocksy/core';
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Outcome (if applicable)
+      description: What result are you hoping to achieve?
+      placeholder: "I expect that..."
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 Additional Information
+      description: |
+        Any other details that might be helpful:
+        - Error messages
+        - Screenshots
+        - Links to documentation you've already checked
+        - Related questions or issues
+      placeholder: "Any additional information..."
+
+  - type: checkboxes
+    id: research
+    attributes:
+      label: 🔍 Research
+      description: Have you already looked for an answer?
+      options:
+        - label: I have checked the README documentation
+        - label: I have searched existing issues and discussions
+        - label: I have looked at the examples in the repository
+        - label: I have checked the package documentation (JSR/NPM)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ Checklist
+      description: Please confirm the following
+      options:
+        - label: My question is clear and specific
+          required: true
+        - label: I have provided sufficient context
+          required: true
+        - label: I have removed any sensitive information
+          required: true
